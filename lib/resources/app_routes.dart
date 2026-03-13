@@ -8,7 +8,7 @@ class AppRoutes {
   static final String homePage = '/homePage';
 
   static final GoRouter router = GoRouter(
-    initialLocation: authPage,
+    initialLocation: homePage,
     routes: [
       GoRoute(path: authPage, builder: (context, state) => AuthPage()),
       GoRoute(path: homePage, builder: (context, state) => Homepage()),

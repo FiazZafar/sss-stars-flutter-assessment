@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sss_stars_flutter_assessment/resources/app_colors.dart';
 import 'package:sss_stars_flutter_assessment/resources/app_text_style.dart';
+import 'package:sss_stars_flutter_assessment/resources/button_container.dart';
 import 'package:sss_stars_flutter_assessment/widgets/PhoneNoSignup.dart';
 import 'package:sss_stars_flutter_assessment/widgets/emailsignup.dart';
 
@@ -14,11 +17,20 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
+  int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        setState(() {
+          _currentIndex = _tabController.index;
+        });
+      }
+    });
   }
 
   @override
@@ -31,9 +43,9 @@ class _AuthPageState extends State<AuthPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF2C2C2C),
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor: AppColors.white),
       body: Container(
-        color: const Color(0xFFF5F5F5),
+        color: AppColors.white,
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,7 +82,7 @@ class _AuthPageState extends State<AuthPage>
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
 
             TabBar(
               controller: _tabController,
@@ -83,47 +95,70 @@ class _AuthPageState extends State<AuthPage>
                 fontWeight: FontWeight.w500,
               ),
               indicator: BoxDecoration(
-                color: AppColors.primary, 
-                
-                borderRadius: BorderRadius.circular(10)
+                color: AppColors.primary,
+                borderRadius: BorderRadius.circular(10),
               ),
               indicatorPadding: EdgeInsets.only(
-                left: 12.0,
-                top: 45,
-                right: 12.0,
+                left: 20.0.w,
+                top: 43.h,
+                right: 25.w,
               ),
-
               dividerColor: AppColors.transparent,
-              tabs: const [
+              tabs: [
                 Tab(text: 'Email Address'),
                 Tab(text: 'Phone Number'),
               ],
             ),
             const SizedBox(height: 20),
 
-            SizedBox(
-              height: 330,
+            Expanded(
               child: TabBarView(
                 controller: _tabController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [EmailSignupTab(), PhoneSignupTab()],
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  // ← sirf yeh animation wala part add kiya
+                  KeyedSubtree(
+                    key: ValueKey('email_$_currentIndex'),
+                    child: EmailSignupTab()
+                        .animate()
+                        .fadeIn(duration: 400.ms)
+                        .slideX(
+                          begin: _currentIndex == 0 ? -0.2 : 0.2,
+                          end: 0,
+                          duration: 400.ms,
+                          curve: Curves.easeOut,
+                        ),
+                  ),
+                  // ← sirf yeh animation wala part add kiya
+                  KeyedSubtree(
+                    key: ValueKey('phone_$_currentIndex'),
+                    child: PhoneSignupTab()
+                        .animate()
+                        .fadeIn(duration: 400.ms)
+                        .slideX(
+                          begin: _currentIndex == 1 ? 0.2 : -0.2,
+                          end: 0,
+                          duration: 400.ms,
+                          curve: Curves.easeOut,
+                        ),
+                  ),
+                ],
               ),
             ),
 
-            const Text(
+            Text(
               'Password must include a number, a letter, and\na special character.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w600,
                 color: Color(0xFF999999),
-                height: 1.5,
+                letterSpacing: 0.8,
               ),
             ),
-            const SizedBox(height: 20),
-
-            const _NextButton(),
-            const SizedBox(height: 16),
-
+            SizedBox(height: 23.h),
+            SSSStoreBtn(title: 'Next', onPressed: () {}, showGradient: true),
+            SizedBox(height: 30.h),
             RichText(
               text: TextSpan(
                 style: const TextStyle(fontSize: 13, color: Color(0xFF888888)),
@@ -145,48 +180,8 @@ class _AuthPageState extends State<AuthPage>
                 ],
               ),
             ),
+            SizedBox(height: 15.h),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _NextButton extends StatelessWidget {
-  const _NextButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 54,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFCECECE), Color(0xFFB0B0B0)],
-          ),
-          borderRadius: BorderRadius.circular(50),
-        ),
-        child: ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.transparent,
-            shadowColor: Colors.transparent,
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-          ),
-          child: const Text(
-            'Next',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
-          ),
         ),
       ),
     );
