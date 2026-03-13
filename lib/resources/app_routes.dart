@@ -3,6 +3,7 @@ import 'package:sss_stars_flutter_assessment/views/auth_page.dart';
 import 'package:sss_stars_flutter_assessment/views/homePage.dart';
 
 class AppRoutes {
+  AppRoutes._();
   static final String authPage = '/';
   static final String homePage = '/homePage';
 

@@ -6,7 +6,9 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: Container(
+        margin: EdgeInsets.symmetric(vertical: 32,horizontal: 16),
+      ),
     );
   }
 }
