@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "518386985010",
+    "project_id": "sss-store-1365e",
+    "storage_bucket": "sss-store-1365e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518386985010:android:5aec3e85b1dd6d90acb42b",
+        "android_client_info": {
+          "package_name": "com.example.sss_stars_flutter_assessment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN-lVeZbsOth6g1Net2lbadiwN2swATEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
