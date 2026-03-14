@@ -40,7 +40,6 @@ class ProductCard extends StatelessWidget {
             ),
           ),
 
-          // ── Gradient overlay at bottom ──────────────────
           Positioned(
             bottom: 0,
             left: 0,
@@ -60,7 +59,6 @@ class ProductCard extends StatelessWidget {
             ),
           ),
 
-          // ── Seller avatar + title + price ───────────────
           Positioned(
             bottom: 8,
             left: 8,
@@ -68,7 +66,6 @@ class ProductCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Seller avatar
                 CircleAvatar(
                   radius: 11,
                   backgroundColor: Colors.grey[300],
@@ -76,7 +73,6 @@ class ProductCard extends StatelessWidget {
                       CachedNetworkImageProvider(product.sellerAvatar ?? 'N/A'),
                 ),
                 const SizedBox(width: 5),
-                // Product title
                 Expanded(
                   child: Text(
                     product.title ?? 'N/A',
@@ -90,7 +86,6 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 4),
-                // Price
                 Text(
                   product.price ?? 'N/A',
                   style: const TextStyle(

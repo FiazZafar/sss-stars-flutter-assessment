@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppTextStyles {
   AppTextStyles._();
 
-  // Base default style (can be modified)
-  static const TextStyle _defaultStyle = TextStyle(
-    fontSize: 14,
+  static final TextStyle _defaultStyle = TextStyle(
+    fontSize: 14.sp,
     fontWeight: FontWeight.normal,
     color: Colors.black,
   );
@@ -36,7 +36,7 @@ abstract class AppTextStyles {
     double? height,
   }) {
     return _defaultStyle.copyWith(
-      fontSize: 10,
+      fontSize: 10.sp,
       fontWeight: fontWeight,
       color: color ?? _defaultStyle.color,
       letterSpacing: letterSpacing,
@@ -51,7 +51,7 @@ abstract class AppTextStyles {
     double? height,
   }) {
     return _defaultStyle.copyWith(
-      fontSize: 12,
+      fontSize: 12.sp,
       fontWeight: fontWeight,
       color: color ?? _defaultStyle.color,
       letterSpacing: letterSpacing,
@@ -68,7 +68,7 @@ abstract class AppTextStyles {
     Color? decorationColor,
   }) {
     return _defaultStyle.copyWith(
-      fontSize: 14,
+      fontSize: 14.sp,
       fontWeight: fontWeight,
       color: color ?? _defaultStyle.color,
       letterSpacing: letterSpacing,
@@ -87,7 +87,7 @@ abstract class AppTextStyles {
     Color? decorationColor,
   }) {
     return _defaultStyle.copyWith(
-      fontSize: 16,
+      fontSize: 16.sp,
       fontWeight: fontWeight,
       color: color ?? _defaultStyle.color,
       letterSpacing: letterSpacing,
@@ -104,7 +104,7 @@ abstract class AppTextStyles {
     double? height,
   }) {
     return _defaultStyle.copyWith(
-      fontSize: 18,
+      fontSize: 18.sp,
       fontWeight: fontWeight,
       color: color ?? _defaultStyle.color,
       letterSpacing: letterSpacing,
@@ -119,7 +119,7 @@ abstract class AppTextStyles {
     double letterSpacing = 0,
   }) {
     return _defaultStyle.copyWith(
-      fontSize: 20,
+      fontSize: 20.sp,
       fontWeight: fontWeight,
       color: color ?? _defaultStyle.color,
       letterSpacing: letterSpacing,
@@ -134,7 +134,7 @@ abstract class AppTextStyles {
     double? height,
   }) {
     return _defaultStyle.copyWith(
-      fontSize: 22,
+      fontSize: 22.sp,
       fontWeight: fontWeight,
       color: color ?? _defaultStyle.color,
       letterSpacing: letterSpacing,
@@ -149,7 +149,7 @@ abstract class AppTextStyles {
     double letterSpacing = 0,
   }) {
     return _defaultStyle.copyWith(
-      fontSize: 24,
+      fontSize: 24.sp,
       height: height,
       fontWeight: fontWeight,
       color: color ?? _defaultStyle.color,
@@ -164,7 +164,7 @@ abstract class AppTextStyles {
     double letterSpacing = 0,
   }) {
     return _defaultStyle.copyWith(
-      fontSize: 26,
+      fontSize: 26.sp,
       fontWeight: fontWeight,
       color: color ?? _defaultStyle.color,
       letterSpacing: letterSpacing,
@@ -179,7 +179,7 @@ abstract class AppTextStyles {
     double letterSpacing = 0,
   }) {
     return _defaultStyle.copyWith(
-      fontSize: 28,
+      fontSize: 28.sp,
       fontWeight: fontWeight,
       color: color ?? _defaultStyle.color,
       letterSpacing: letterSpacing,
@@ -195,7 +195,7 @@ abstract class AppTextStyles {
     double? height,
   }) {
     return _defaultStyle.copyWith(
-      fontSize: 32,
+      fontSize: 32.sp,
       fontWeight: fontWeight,
       color: color ?? _defaultStyle.color,
       letterSpacing: letterSpacing,

@@ -45,7 +45,7 @@ class _EmailSignupTabState extends State<EmailSignupTab> {
             imagePath: AppAssets.emailIcon,
             isValid: vm.emailValid,
             validator: vm.formValidateEmail,
-            onChanged: (v) => vm.validateEmail(v), // ✅ live update
+            onChanged: (v) => vm.validateEmail(v), 
           ),
           const SizedBox(height: 12),
 
@@ -57,7 +57,7 @@ class _EmailSignupTabState extends State<EmailSignupTab> {
             imagePath: AppAssets.userIcon,
             isValid: vm.nameValid,
             validator: vm.formValidateUsername,
-            onChanged: (v) => vm.validateUsername(v), // ✅ live update
+            onChanged: (v) => vm.validateUsername(v), 
           ),
           const SizedBox(height: 12),
           AuthField(
@@ -113,7 +113,7 @@ class _EmailSignupTabState extends State<EmailSignupTab> {
           
             isValid: vm.passwordValid,
             validator: vm.formValidatePassword,
-            onChanged: (v) => vm.validatePassword(v), // ✅ live update
+            onChanged: (v) => vm.validatePassword(v), 
             suffixIcon: GestureDetector(
               onTap: () => setState(() => _obscurePassword = !_obscurePassword),
               child: Icon(

@@ -45,17 +45,15 @@ class SSSStoreBtn extends StatelessWidget {
     this.enableBorder = false,
     this.showGradient = true,
     this.gradient,
-    this.isEnabled = false, // ✅ default disabled
+    this.isEnabled = false,
   });
 
-  // ✅ grey gradient when disabled
   static const Gradient _disabledGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.centerRight,
     colors: [Color(0xFFCCCCCC), Color(0xFF999999)],
   );
 
-  // ✅ active gradient when enabled
   static const Gradient _enabledGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.centerRight,
@@ -109,7 +107,6 @@ class SSSStoreBtn extends StatelessWidget {
                 key: textKey,
                 style: textStyle ??
                     AppTextStyles.customText(
-                      // ✅ text color also reflects state
                       color: isEnabled ? AppColors.white : AppColors.black,
                       fontWeight: FontWeight.w400,
                       fontSize: 15.sp,
@@ -125,6 +122,6 @@ class SSSStoreBtn extends StatelessWidget {
     .animate()
     .shake(duration: 300.ms)
     .then(delay: 100.ms)
-    .shimmer(duration: 600.ms, color: AppColors.negativeRed);
+    .shimmer(duration: 600.ms, color: AppColors.primary.withOpacity(0.2));
   }
 }

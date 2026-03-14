@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:sss_stars_flutter_assessment/resources/app_assets.dart';
 
 class SearchField extends StatelessWidget {
   const SearchField({super.key});
@@ -22,16 +23,15 @@ class SearchField extends StatelessWidget {
             const Expanded(
               child: Text(
                 'Search your product...',
-                style:
-                    TextStyle(fontSize: 13, color: Color(0xFFBBBBBB)),
+                style: TextStyle(fontSize: 13, color: Color(0xFFBBBBBB)),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 10),
-              child: const Icon(
-                Icons.tune,
-                color: Color(0xFF4A90D9),
-                size: 18,
+              child: Image.asset(
+                AppAssets.filterIcon, 
+                width: 18,
+                height: 18,
               ),
             ),
           ],
@@ -60,27 +60,23 @@ class SearchBarWithAvatar extends StatelessWidget {
               child: Row(
                 children: [
                   const SizedBox(width: 12),
-                  const Icon(Icons.search,
-                      color: Color(0xFFAAAAAA), size: 20),
+                  const Icon(Icons.search, color: Color(0xFFAAAAAA), size: 20),
                   const SizedBox(width: 8),
                   const Expanded(
                     child: Text(
                       'Air Jordan 1, dark mocha',
-                      style: TextStyle(
-                          fontSize: 13, color: Color(0xFF888888)),
+                      style: TextStyle(fontSize: 13, color: Color(0xFF888888)),
                     ),
                   ),
                   const Padding(
                     padding: EdgeInsets.only(right: 10),
-                    child: Icon(Icons.tune,
-                        color: Color(0xFF4A90D9), size: 18),
+                    child: Icon(Icons.tune, color: Color(0xFF4A90D9), size: 18),
                   ),
                 ],
               ),
             ),
           ),
           const SizedBox(width: 10),
-          // Avatar with notification badge
           Stack(
             children: [
               Container(
@@ -88,8 +84,7 @@ class SearchBarWithAvatar extends StatelessWidget {
                 height: 42,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(
-                      color: const Color(0xFF4A90D9), width: 2),
+                  border: Border.all(color: const Color(0xFF4A90D9), width: 2),
                 ),
                 child: ClipOval(
                   child: CachedNetworkImage(
@@ -112,9 +107,10 @@ class SearchBarWithAvatar extends StatelessWidget {
                     child: Text(
                       '3',
                       style: TextStyle(
-                          fontSize: 9,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                        fontSize: 9,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -126,4 +122,3 @@ class SearchBarWithAvatar extends StatelessWidget {
     );
   }
 }
-

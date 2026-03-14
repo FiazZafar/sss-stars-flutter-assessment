@@ -44,7 +44,6 @@ class ForYouTab extends StatelessWidget {
             ),
           ),
         ),
-        // ── MASONRY GRID using flutter_staggered_grid_view ──
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           sliver: MasonrySliverGrid(products: products),

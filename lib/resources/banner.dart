@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sss_stars_flutter_assessment/mvvm/viewModel/trending_model.dart';
+import 'package:sss_stars_flutter_assessment/mvvm/models/trending_model.dart';
 
 final List<String> _flagUrls = [
   'https://flagcdn.com/w40/kr.png',
@@ -52,7 +52,7 @@ class BannerCarousel extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 380,
+          height: 380.h,
           child: PageView.builder(
             controller: controller,
             onPageChanged: onChanged,
@@ -71,7 +71,7 @@ class BannerCarousel extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(height: 10),
+         SizedBox(height: 10.h),
         // ✅ dot indicators
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +81,7 @@ class BannerCarousel extends StatelessWidget {
               duration: const Duration(milliseconds: 250),
               margin: const EdgeInsets.symmetric(horizontal: 3),
               width: i == currentIndex ? 20 : 6,
-              height: 6,
+              height: 6.h,
               decoration: BoxDecoration(
                 color: i == currentIndex
                     ? const Color(0xFF4A90D9)
@@ -118,7 +118,7 @@ class BannerCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Container(
-              height: 220,
+              height: 220.h,
               width: double.infinity,
               color: const Color(0xFFF08080),
               child: CachedNetworkImage(
@@ -141,7 +141,7 @@ class BannerCard extends StatelessWidget {
               height: 1.1,
             ),
           ),
-          const SizedBox(height: 5),
+           SizedBox(height: 5.sp),
           Text(
             subtitle,
             style:  GoogleFonts.dmSans(
@@ -151,7 +151,7 @@ class BannerCard extends StatelessWidget {
               height: 1.4,
             ),
           ),
-          const SizedBox(height: 12),
+           SizedBox(height: 12.h),
           Container(
             height: 42,
             decoration: BoxDecoration(
@@ -163,7 +163,7 @@ class BannerCard extends StatelessWidget {
               icon:  Text(
                 'Shop Now',
                 style: GoogleFonts.poppins(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
                 ),
@@ -306,9 +306,8 @@ class _BrandTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start, // ✅ centers More button
+        crossAxisAlignment: CrossAxisAlignment.start, 
         children: [
-          // ✅ circular avatar
           ClipOval(
             child: CachedNetworkImage(
               imageUrl: brand.avatarUrl,

@@ -13,7 +13,6 @@ class MasonrySliverGrid extends StatelessWidget {
       crossAxisCount: 2,
       mainAxisSpacing: 8,
       crossAxisSpacing: 8,
-      // ✅ correct API — just itemBuilder + itemCount, no childDelegate
       itemBuilder: (context, index) {
         final product = products[index];
         return ProductCard(product: product);

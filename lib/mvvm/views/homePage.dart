@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:sss_stars_flutter_assessment/mvvm/viewModel/home_viewModel.dart';
 import 'package:sss_stars_flutter_assessment/resources/app_assets.dart';
@@ -27,7 +28,6 @@ class _HomepageState extends State<Homepage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
   int _bottomNavIndex = 0;
-  int _bannerIndex = 0;
   final PageController _bannerController = PageController();
 
   @override
@@ -61,7 +61,7 @@ class _HomepageState extends State<Homepage>
           ],
         ),
       ),
-      bottomNavigationBar: _buildBottomNav(),
+      bottomNavigationBar: _buildBottomNav(vm),
     );
   }
 
@@ -75,14 +75,14 @@ class _HomepageState extends State<Homepage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.error_outline, size: 48, color: Colors.grey),
-            const SizedBox(height: 12),
+            Icon(Icons.error_outline, size: 48.sp, color: Colors.grey),
+            SizedBox(height: 12.h),
             Text(
               vm.message,
               style: const TextStyle(color: Colors.grey, fontSize: 14),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             TextButton(
               onPressed: () => vm.getProducts(),
               child: const Text('Retry'),
@@ -102,9 +102,9 @@ class _HomepageState extends State<Homepage>
         ForYouTab(
           banners: banners,
           products: vm.productList,
-          bannerIndex: vm.bannerIndex, // ✅ from VM
+          bannerIndex: vm.bannerIndex,
           bannerController: _bannerController,
-          onBannerChanged: (i) => vm.setBannerIndex(i), // ✅ VM call
+          onBannerChanged: (i) => vm.setBannerIndex(i),
         ),
         ExploreTab(products: vm.productList),
       ],
@@ -121,9 +121,9 @@ class _HomepageState extends State<Homepage>
         controller: _tabController,
         labelColor: const Color(0xFF1A1A1A),
         unselectedLabelColor: const Color(0xFFAAAAAA),
-        labelStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-        unselectedLabelStyle: const TextStyle(
-          fontSize: 15,
+        labelStyle:  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
+        unselectedLabelStyle:  TextStyle(
+          fontSize: 15.sp,
           fontWeight: FontWeight.w400,
         ),
         indicatorColor: const Color(0xFF4A90D9),
@@ -138,8 +138,9 @@ class _HomepageState extends State<Homepage>
     );
   }
 
-  Widget _buildBottomNav() {
+  Widget _buildBottomNav(HomeViewmodel vm) {
     return Container(
+      height: 86.h,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -158,27 +159,26 @@ class _HomepageState extends State<Homepage>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               NavItem(
-                icon: Icons.storefront_rounded,
+                imagePath: AppAssets.shop,
                 label: 'Shop',
-                isSelected: _bottomNavIndex == 0,
-                onTap: () => setState(() => _bottomNavIndex = 0),
+                isSelected: vm.bottomNavIndex == 0,
+                onTap: () => vm.setBottomNavIndex(0),
               ),
               NavItem(
-                icon: Icons.shopping_cart_outlined,
+                imagePath: AppAssets.cart,
                 label: 'Cart',
-                isSelected: _bottomNavIndex == 1,
-                onTap: () => setState(() => _bottomNavIndex = 1),
+                isSelected: vm.bottomNavIndex == 1,
+                onTap: () => vm.setBottomNavIndex(1),
               ),
               NavItem(
-                icon: Icons.person_outline,
+                imagePath: AppAssets.profile,
                 label: 'Profile',
-                isSelected: _bottomNavIndex == 2,
-                onTap: () => setState(() => _bottomNavIndex = 2),
+                isSelected: vm.bottomNavIndex == 2,
+                onTap: () => vm.setBottomNavIndex(2),
               ),
             ],
           ),
         ),
       ),
     );
-  }
-}
+  }}
