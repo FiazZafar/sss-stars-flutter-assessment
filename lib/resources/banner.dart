@@ -1,5 +1,35 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sss_stars_flutter_assessment/mvvm/viewModel/trending_model.dart';
+
+final List<String> _flagUrls = [
+  'https://flagcdn.com/w40/kr.png',
+  'https://flagcdn.com/w40/br.png',
+  'https://flagcdn.com/w40/us.png',
+  'https://flagcdn.com/w40/za.png',
+];
+final List<TrendingBrand> trendingBrands = [
+  TrendingBrand(
+    avatarUrl: 'https://i.pravatar.cc/80?img=1',
+    name: "Amanda's Boutique",
+    description:
+        'A modern designer with a youthful spirit, dedicated to hand-making every piece with care....',
+  ),
+  TrendingBrand(
+    avatarUrl: 'https://i.pravatar.cc/80?img=2',
+    name: 'Nike',
+    description: 'Just Do It',
+  ),
+
+  TrendingBrand(
+    avatarUrl: 'https://i.pravatar.cc/80?img=2',
+    name: 'Nike',
+    description:
+        'A modern designer with a youthful spirit, dedicated to hand-making every piece with care.',
+  ),
+];
 
 class BannerCarousel extends StatelessWidget {
   final List<Map<String, String>> banners;
@@ -8,23 +38,30 @@ class BannerCarousel extends StatelessWidget {
   final ValueChanged<int> onChanged;
 
   const BannerCarousel({
+    super.key,
     required this.banners,
     required this.currentIndex,
     required this.controller,
     required this.onChanged,
   });
 
+  int get _totalPages => banners.length + 1;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(
-          height: 350,
+          height: 380,
           child: PageView.builder(
             controller: controller,
             onPageChanged: onChanged,
-            itemCount: banners.length,
+            itemCount: _totalPages,
             itemBuilder: (context, index) {
+              // ✅ last page is always the trending brands page
+              if (index == _totalPages - 1) {
+                return const TrendingBrandsPage();
+              }
               final b = banners[index];
               return BannerCard(
                 imageUrl: b['imageUrl']!,
@@ -35,11 +72,11 @@ class BannerCarousel extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        // Animated dot indicators
+        // ✅ dot indicators
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
-            banners.length,
+            _totalPages,
             (i) => AnimatedContainer(
               duration: const Duration(milliseconds: 250),
               margin: const EdgeInsets.symmetric(horizontal: 3),
@@ -58,12 +95,14 @@ class BannerCarousel extends StatelessWidget {
     );
   }
 }
+
 class BannerCard extends StatelessWidget {
   final String imageUrl;
   final String title;
   final String subtitle;
 
-  const BannerCard({super.key, 
+  const BannerCard({
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.subtitle,
@@ -76,25 +115,28 @@ class BannerCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image
-          SizedBox(
-            height: 180,
-            width: double.infinity,
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
-              
-              fit: BoxFit.contain,
-              placeholder: (_, __) => Container(
-                color: const Color(0xFFF0F0F0),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Container(
+              height: 220,
+              width: double.infinity,
+              color: const Color(0xFFF08080),
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.contain,
+                placeholder: (_, __) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (_, __, ___) =>
+                    const Icon(Icons.broken_image, size: 40),
               ),
             ),
           ),
           const SizedBox(height: 14),
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
+            style:  GoogleFonts.poppins(
+              fontSize: 30.sp,
+              fontWeight: FontWeight.w900,
               color: Color(0xFF1A1A1A),
               height: 1.1,
             ),
@@ -102,8 +144,9 @@ class BannerCard extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             subtitle,
-            style: const TextStyle(
+            style:  GoogleFonts.dmSans(
               fontSize: 13,
+              fontWeight: FontWeight.w300,
               color: Color(0xFF888888),
               height: 1.4,
             ),
@@ -113,24 +156,222 @@ class BannerCard extends StatelessWidget {
             height: 42,
             decoration: BoxDecoration(
               color: const Color(0xFF1A1A2E),
-              borderRadius: BorderRadius.circular(21),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: TextButton.icon(
               onPressed: () {},
-              icon: const Text(
+              icon:  Text(
                 'Shop Now',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
               ),
-              label: const Icon(Icons.arrow_forward,
-                  color: Colors.white, size: 16),
+              label: const Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+                size: 16,
+              ),
               style: TextButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(21),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TrendingBrandsPage extends StatelessWidget {
+  const TrendingBrandsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Trending Brands',
+            style: GoogleFonts.poppins(
+              fontSize: 30.sp,
+              fontWeight: FontWeight.w900,
+              color: Color(0xFF1A1A1A).withOpacity(0.8),
+              height: 1.1,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Loved by the community, picked by us — these brands are changing the game from the ground up.',
+            style: GoogleFonts.dmSans(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF888888),
+              height: 1.4,
+            ),
+          ),
+          const SizedBox(height: 14),
+
+          Expanded(
+            child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: trendingBrands.length,
+              // itemExtentBuilder: (_, __) =>
+              // const Divider(height: 1, color: Color(0xFFF0F0F0)),
+              itemBuilder: (context, index) {
+                final brand = trendingBrands[index];
+                return _BrandTile(brand: brand);
+              },
+            ),
+          ),
+          SizedBox(height: 10.h),
+
+          // ✅ flags + explore global scene row
+          // ✅ flags + explore global scene row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // stacked overlapping flag circles
+              SizedBox(
+                width: 40.0 + (_flagUrls.length - 1) * 26.0,
+                height: 40,
+                child: Stack(
+                  children: List.generate(_flagUrls.length, (index) {
+                    return Positioned(
+                      left: index * 26.0, // ✅ overlap offset
+                      child: Container(
+                        width: 36,
+                        height: 36,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2,
+                          ), // ✅ white border separates overlapping circles
+                        ),
+                        child: ClipOval(
+                          child: CachedNetworkImage(
+                            imageUrl: _flagUrls[index],
+                            fit: BoxFit.cover,
+                            placeholder: (_, __) =>
+                                Container(color: const Color(0xFFF0F0F0)),
+                            errorWidget: (_, __, ___) =>
+                                Container(color: const Color(0xFFF0F0F0)),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ),
+
+
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: GestureDetector(
+                  onTap: () {},
+                  child:  Text(
+                    'Explore the Global Scene  >',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                      color: Color(0xFF4A90D9),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BrandTile extends StatelessWidget {
+  final TrendingBrand brand;
+
+  const _BrandTile({required this.brand});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start, // ✅ centers More button
+        children: [
+          // ✅ circular avatar
+          ClipOval(
+            child: CachedNetworkImage(
+              imageUrl: brand.avatarUrl,
+              width: 52.r,
+              height: 52.r,
+              fit: BoxFit.cover,
+              placeholder: (_, __) => Container(
+                width: 52,
+                height: 52,
+                color: const Color(0xFFF0F0F0),
+              ),
+            ),
+          ),
+          SizedBox(width: 12),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              
+              children: [
+                Text(
+                  brand.name,
+                  style: GoogleFonts.dmSans(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF1A1A1A).withOpacity(0.8),
+                    height: 1.1,
+                  ),
+                ),
+                if (brand.description != null) ...[
+                  const SizedBox(height: 3),
+                  Text(
+                    brand.description!,
+                    style: GoogleFonts.poppins(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w300,
+                      color: Color(0xFF1A1A1A).withOpacity(0.8),
+                      height: 1.1,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ],
+            ),
+          ),
+
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {},
+              style: TextButton.styleFrom(
+                minimumSize: Size.zero,
+                padding: EdgeInsets.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              child: const Text(
+                'More',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xff0079FF),
                 ),
               ),
             ),

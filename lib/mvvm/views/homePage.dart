@@ -9,17 +9,10 @@ import 'package:sss_stars_flutter_assessment/widgets/nav_items.dart';
 final List<Map<String, String>> banners = [
   {
     'imageUrl':
-        'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800',
     'title': 'Emerging Designers',
     'subtitle':
         'Explore small businesses and discover unique, one-of-a-kind looks.',
-  },
-  {
-    'imageUrl':
-        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800',
-    'title': 'New Arrivals',
-    'subtitle':
-        'Fresh drops every week. Be the first to get the latest styles.',
   },
 ];
 

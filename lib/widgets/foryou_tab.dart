@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sss_stars_flutter_assessment/mvvm/models/product_model.dart';
 import 'package:sss_stars_flutter_assessment/resources/banner.dart';
+import 'package:sss_stars_flutter_assessment/resources/search_bar.dart';
 import 'package:sss_stars_flutter_assessment/resources/silver_grid.dart';
 
 class ForYouTab extends StatelessWidget {
@@ -22,7 +23,7 @@ class ForYouTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(child: SearchBar()),
+        SliverToBoxAdapter(child: SearchField()),
         SliverToBoxAdapter(
           child: BannerCarousel(
             banners: banners,
