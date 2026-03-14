@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sss_stars_flutter_assessment/mvvm/viewModel/home_viewModel.dart';
+import 'package:sss_stars_flutter_assessment/resources/app_assets.dart';
 import 'package:sss_stars_flutter_assessment/widgets/explore_tab.dart';
 import 'package:sss_stars_flutter_assessment/widgets/foryou_tab.dart';
 import 'package:sss_stars_flutter_assessment/widgets/nav_items.dart';
@@ -32,6 +33,8 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
+  int _bottomNavIndex = 0;
+  int _bannerIndex = 0;
   final PageController _bannerController = PageController();
 
   @override
@@ -61,13 +64,11 @@ class _HomepageState extends State<Homepage>
         child: Column(
           children: [
             _buildTopTabs(),
-            Expanded(
-              child: _buildBody(vm),
-            ),
+            Expanded(child: _buildBody(vm)),
           ],
         ),
       ),
-      bottomNavigationBar: _buildBottomNav(vm),
+      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
@@ -108,7 +109,7 @@ class _HomepageState extends State<Homepage>
         ForYouTab(
           banners: banners,
           products: vm.productList,
-          bannerIndex: vm.bannerIndex,           // ✅ from VM
+          bannerIndex: vm.bannerIndex, // ✅ from VM
           bannerController: _bannerController,
           onBannerChanged: (i) => vm.setBannerIndex(i), // ✅ VM call
         ),
@@ -121,18 +122,17 @@ class _HomepageState extends State<Homepage>
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(
-          bottom: BorderSide(color: Color(0xFFEEEEEE), width: 1),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xFFEEEEEE), width: 1)),
       ),
       child: TabBar(
         controller: _tabController,
         labelColor: const Color(0xFF1A1A1A),
         unselectedLabelColor: const Color(0xFFAAAAAA),
-        labelStyle:
-            const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-        unselectedLabelStyle:
-            const TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+        labelStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+        ),
         indicatorColor: const Color(0xFF4A90D9),
         indicatorWeight: 2.5,
         indicatorSize: TabBarIndicatorSize.tab,
@@ -145,7 +145,7 @@ class _HomepageState extends State<Homepage>
     );
   }
 
-  Widget _buildBottomNav(HomeViewmodel vm) {
+  Widget _buildBottomNav() {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -167,20 +167,20 @@ class _HomepageState extends State<Homepage>
               NavItem(
                 icon: Icons.storefront_rounded,
                 label: 'Shop',
-                isSelected: vm.bottomNavIndex == 0,       // ✅ from VM
-                onTap: () => vm.setBottomNavIndex(0),     // ✅ VM call
+                isSelected: _bottomNavIndex == 0,
+                onTap: () => setState(() => _bottomNavIndex = 0),
               ),
               NavItem(
                 icon: Icons.shopping_cart_outlined,
                 label: 'Cart',
-                isSelected: vm.bottomNavIndex == 1,
-                onTap: () => vm.setBottomNavIndex(1),
+                isSelected: _bottomNavIndex == 1,
+                onTap: () => setState(() => _bottomNavIndex = 1),
               ),
               NavItem(
                 icon: Icons.person_outline,
                 label: 'Profile',
-                isSelected: vm.bottomNavIndex == 2,
-                onTap: () => vm.setBottomNavIndex(2),
+                isSelected: _bottomNavIndex == 2,
+                onTap: () => setState(() => _bottomNavIndex = 2),
               ),
             ],
           ),

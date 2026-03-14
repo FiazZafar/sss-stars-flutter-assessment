@@ -7,7 +7,6 @@ class NavItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const NavItem({
-    super.key,
     required this.icon,
     required this.label,
     required this.isSelected,
@@ -30,7 +29,8 @@ class NavItem extends StatelessWidget {
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 12, vertical: 4),
               decoration: BoxDecoration(
                 color: isSelected
                     ? const Color(0xFF4A90D9).withOpacity(0.12)
@@ -45,7 +45,9 @@ class NavItem extends StatelessWidget {
               style: TextStyle(
                 fontSize: 11,
                 color: color,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                fontWeight: isSelected
+                    ? FontWeight.w600
+                    : FontWeight.w400,
               ),
             ),
           ],
