@@ -22,18 +22,16 @@ class _AuthPageState extends State<AuthPage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
-  // ✅ one set of shared controllers — no duplicates needed
   late final TextEditingController _emailController;
   late final TextEditingController _phoneNoController;
   late final TextEditingController _nameController;
   late final TextEditingController _passwordController;
   late final TextEditingController _birthDateController;
 
-  // ✅ separate form keys per tab
   late final GlobalKey<FormState> _emailFormKey;
   late final GlobalKey<FormState> _phoneFormKey;
 
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
 
   @override
   void initState() {
@@ -171,11 +169,11 @@ class _AuthPageState extends State<AuthPage>
                     child:
                         PhoneSignupTab(
                               phoneNoController: _phoneNoController,
-                              nameController: _nameController, // ✅ shared
+                              nameController: _nameController, 
                               birthDateController:
-                                  _birthDateController, // ✅ shared
+                                  _birthDateController, 
                               passwordController:
-                                  _passwordController, // ✅ shared
+                                  _passwordController, 
                               formKey: _phoneFormKey,
                             )
                             .animate()
@@ -208,6 +206,7 @@ class _AuthPageState extends State<AuthPage>
               builder: (context, value, child) => SSSStoreBtn(
                 title: 'Next',
                 showGradient: true,
+                isEnabled: value.allFieldsValid,
                 onPressed: () async {
                   final activeKey = _currentIndex == 0
                       ? _emailFormKey

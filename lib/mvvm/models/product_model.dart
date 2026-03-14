@@ -1,34 +1,57 @@
 class ProductItem {
-  final String id;
-  final String imageUrl;
-  final String title;
-  final String price;
-  final String sellerAvatar;
-  // aspectRatio comes from backend image metadata
-  // tall images > 1.2, wide images < 0.8, square ≈ 1.0
-  final double aspectRatio;
+  String? id;
+  String? imageUrl;
+  String? title;
+  String? price;
+  double? priceValue;
+  String? sellerAvatar;
+  double? aspectRatio;
+  String? category;
+  String? sellerName;
+  bool? isFeatured;
+  String? createdAt;
 
-  const ProductItem({
-    required this.id,
-    required this.imageUrl,
-    required this.title,
-    required this.price,
-    required this.sellerAvatar,
-    this.aspectRatio = 1.0,
+  ProductItem({
+    this.id,
+    this.imageUrl,
+    this.title,
+    this.price,
+    this.priceValue,
+    this.sellerAvatar,
+    this.aspectRatio,
+    this.category,
+    this.sellerName,
+    this.isFeatured,
+    this.createdAt,
   });
 
-  // ── Factory from Firestore document ──────────────────────
-  // Later you will use this when fetching from Firebase:
-  //
-  // factory ProductItem.fromFirestore(DocumentSnapshot doc) {
-  //   final data = doc.data() as Map<String, dynamic>;
-  //   return ProductItem(
-  //     id: doc.id,
-  //     imageUrl: data['imageUrl'] ?? '',
-  //     title: data['title'] ?? '',
-  //     price: data['price'] ?? '',
-  //     sellerAvatar: data['sellerAvatar'] ?? '',
-  //     aspectRatio: (data['aspectRatio'] as num?)?.toDouble() ?? 1.0,
-  //   );
-  // }
+  ProductItem.fromJson(Map<String, dynamic> json) {
+    id = json['id']?.toString();
+    imageUrl = json['imageUrl']?.toString();
+    title = json['title']?.toString();
+    price = json['price']?.toString();
+    priceValue = (json['priceValue'] as num?)?.toDouble();   // ✅ safe cast
+    sellerAvatar = json['sellerAvatar']?.toString();
+    aspectRatio = (json['aspectRatio'] as num?)?.toDouble(); // ✅ safe cast
+    category = json['category']?.toString();
+    sellerName = json['sellerName']?.toString();
+    isFeatured = json['isFeatured'] as bool?;
+    createdAt = json['createdAt']?.toString();
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'imageUrl': imageUrl,
+      'title': title,
+      'price': price,
+      'priceValue': priceValue,
+      'sellerAvatar': sellerAvatar,
+      'aspectRatio': aspectRatio,
+      'category': category,
+      'sellerName': sellerName,
+      'isFeatured': isFeatured,
+      'createdAt': createdAt,
+    };
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sss_stars_flutter_assessment/firebase_options.dart';
+import 'package:sss_stars_flutter_assessment/mvvm/viewModel/home_viewModel.dart';
 import 'package:sss_stars_flutter_assessment/resources/app_routes.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -9,17 +10,17 @@ import 'package:sss_stars_flutter_assessment/mvvm/viewModel/auth_view_model.dart
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => AuthViewModel())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => HomeViewmodel()),
+      ],
       child: const MyApp(),
     ),
   );
-
 }
 
 class MyApp extends StatelessWidget {
@@ -36,7 +37,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routerConfig: AppRoutes.router,
         title: 'SSS Store',
-        theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ),
       ),
     );
   }
