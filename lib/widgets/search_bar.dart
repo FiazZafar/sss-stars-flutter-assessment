@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sss_stars_flutter_assessment/resources/app_assets.dart';
 
 class SearchField extends StatelessWidget {
@@ -18,7 +19,7 @@ class SearchField extends StatelessWidget {
         child: Row(
           children: [
             const SizedBox(width: 12),
-            const Icon(Icons.search, color: Color(0xFFAAAAAA), size: 20),
+             Icon(Icons.search, color: Color(0xFFAAAAAA), size: 20.h),
             const SizedBox(width: 8),
             const Expanded(
               child: Text(
@@ -30,8 +31,8 @@ class SearchField extends StatelessWidget {
               padding: const EdgeInsets.only(right: 10),
               child: Image.asset(
                 AppAssets.filterIcon, 
-                width: 18,
-                height: 18,
+                width: 24.w,
+                height: 24.h,
               ),
             ),
           ],
@@ -60,7 +61,7 @@ class SearchBarWithAvatar extends StatelessWidget {
               child: Row(
                 children: [
                   const SizedBox(width: 12),
-                  const Icon(Icons.search, color: Color(0xFFAAAAAA), size: 20),
+                   Icon(Icons.search, color: Color(0xFFAAAAAA), size: 20.h),
                   const SizedBox(width: 8),
                   const Expanded(
                     child: Text(
@@ -68,9 +69,9 @@ class SearchBarWithAvatar extends StatelessWidget {
                       style: TextStyle(fontSize: 13, color: Color(0xFF888888)),
                     ),
                   ),
-                  const Padding(
+                   Padding(
                     padding: EdgeInsets.only(right: 10),
-                    child: Icon(Icons.tune, color: Color(0xFF4A90D9), size: 18),
+                    child: Image.asset(AppAssets.filterIcon,height: 24.h,width: 24.w,),
                   ),
                 ],
               ),
@@ -84,7 +85,7 @@ class SearchBarWithAvatar extends StatelessWidget {
                 height: 42,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: const Color(0xFF4A90D9), width: 2),
+                  border: Border.all(color: const Color(0xFF0079FF), width: 2),
                 ),
                 child: ClipOval(
                   child: CachedNetworkImage(
@@ -100,7 +101,7 @@ class SearchBarWithAvatar extends StatelessWidget {
                   width: 16,
                   height: 16,
                   decoration: const BoxDecoration(
-                    color: Color(0xFF4A90D9),
+                    color: Color(0xFF0079FF),
                     shape: BoxShape.circle,
                   ),
                   child: const Center(

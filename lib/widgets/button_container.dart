@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sss_stars_flutter_assessment/resources/app_colors.dart';
-import 'package:sss_stars_flutter_assessment/resources/app_text_style.dart';
 
 class SSSStoreBtn extends StatelessWidget {
   final String title;
@@ -106,7 +106,7 @@ class SSSStoreBtn extends StatelessWidget {
                 title,
                 key: textKey,
                 style: textStyle ??
-                    AppTextStyles.customText(
+                    GoogleFonts.poppins(
                       color: isEnabled ? AppColors.white : AppColors.black,
                       fontWeight: FontWeight.w400,
                       fontSize: 15.sp,

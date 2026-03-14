@@ -126,7 +126,7 @@ class _HomepageState extends State<Homepage>
           fontSize: 15.sp,
           fontWeight: FontWeight.w400,
         ),
-        indicatorColor: const Color(0xFF4A90D9),
+        indicatorColor: const Color(0xff0079FF),
         indicatorWeight: 2.5,
         indicatorSize: TabBarIndicatorSize.tab,
         dividerColor: Colors.transparent,

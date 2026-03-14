@@ -87,7 +87,7 @@ class AuthField extends StatelessWidget {
       : null,
            
               cursorColor: AppColors.primary,
-              cursorHeight: 30.h,
+              // cursorHeight: 10.h,
               cursorWidth: 3.w,
               cursorRadius: Radius.circular(10.r),
               onChanged: onChanged,
@@ -102,7 +102,7 @@ class AuthField extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: hintText,
                 labelStyle: GoogleFonts.poppins(
-                  fontSize: 12.5.sp,
+                  fontSize: 16.5.sp,
                   fontWeight: FontWeight.w500,
                   color: isValid ? AppColors.primary : const Color(0xFFAAAAAA),
                 ),
@@ -119,7 +119,7 @@ class AuthField extends StatelessWidget {
                 ), 
                 contentPadding: EdgeInsets.symmetric(
                   horizontal: 12.w,
-                  vertical: 20.h,
+                  vertical: 16.h,
                 ),
               ),
             ),

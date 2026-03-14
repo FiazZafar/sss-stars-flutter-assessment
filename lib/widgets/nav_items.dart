@@ -37,7 +37,7 @@ class NavItem extends StatelessWidget {
                           height: 26.h,
                           width: 26.w,
                           color: isSelected
-                              ? const Color(0xFF4A90D9)
+                              ? const Color(0xFF0079FF)
                               : const Color(0xffC1CEDC),
                         )
                         .animate(target: isSelected ? 1 : 1)
@@ -68,7 +68,7 @@ class NavItem extends StatelessWidget {
                             fontSize: 12.sp,
 
                             color: isSelected
-                                ? const Color(0xFF4A90D9)
+                                ? const Color(0xFF0079FF).withOpacity(0.9)
                                 : const Color(0xffC1CEDC),
                             fontWeight: isSelected
                                 ? FontWeight.w700

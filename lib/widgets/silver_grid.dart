@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sss_stars_flutter_assessment/mvvm/models/product_model.dart';
-import 'package:sss_stars_flutter_assessment/resources/product_card.dart';
+import 'package:sss_stars_flutter_assessment/widgets/product_card.dart';
 
 class MasonrySliverGrid extends StatelessWidget {
   final List<ProductItem> products;

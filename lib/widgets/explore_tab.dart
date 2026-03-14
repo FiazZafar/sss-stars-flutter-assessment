@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:sss_stars_flutter_assessment/mvvm/models/product_model.dart';
-import 'package:sss_stars_flutter_assessment/resources/search_bar.dart';
-import 'package:sss_stars_flutter_assessment/resources/silver_grid.dart';
+import 'package:sss_stars_flutter_assessment/widgets/search_bar.dart';
+import 'package:sss_stars_flutter_assessment/widgets/silver_grid.dart';
 
 class ExploreTab extends StatelessWidget {
   final List<ProductItem> products;

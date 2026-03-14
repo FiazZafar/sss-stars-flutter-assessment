@@ -58,7 +58,6 @@ class BannerCarousel extends StatelessWidget {
             onPageChanged: onChanged,
             itemCount: _totalPages,
             itemBuilder: (context, index) {
-              // ✅ last page is always the trending brands page
               if (index == _totalPages - 1) {
                 return const TrendingBrandsPage();
               }
@@ -84,7 +83,7 @@ class BannerCarousel extends StatelessWidget {
               height: 6.h,
               decoration: BoxDecoration(
                 color: i == currentIndex
-                    ? const Color(0xFF4A90D9)
+                    ? const Color(0xFF0079FF)
                     : const Color(0xFFCCCCCC),
                 borderRadius: BorderRadius.circular(3),
               ),
@@ -222,8 +221,6 @@ class TrendingBrandsPage extends StatelessWidget {
             child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               itemCount: trendingBrands.length,
-              // itemExtentBuilder: (_, __) =>
-              // const Divider(height: 1, color: Color(0xFFF0F0F0)),
               itemBuilder: (context, index) {
                 final brand = trendingBrands[index];
                 return _BrandTile(brand: brand);
@@ -232,20 +229,17 @@ class TrendingBrandsPage extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
 
-          // ✅ flags + explore global scene row
-          // ✅ flags + explore global scene row
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // stacked overlapping flag circles
               SizedBox(
                 width: 40.0 + (_flagUrls.length - 1) * 26.0,
                 height: 40,
                 child: Stack(
                   children: List.generate(_flagUrls.length, (index) {
                     return Positioned(
-                      left: index * 26.0, // ✅ overlap offset
+                      left: index * 26.0,
                       child: Container(
                         width: 36,
                         height: 36,
@@ -368,8 +362,8 @@ class _BrandTile extends StatelessWidget {
               child: const Text(
                 'More',
                 style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
                   color: Color(0xff0079FF),
                 ),
               ),
