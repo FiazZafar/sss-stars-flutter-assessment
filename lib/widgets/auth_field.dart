@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sss_stars_flutter_assessment/resources/app_colors.dart';
@@ -17,6 +18,8 @@ class AuthField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool isValid;
   final void Function(String)? onChanged;
+  final TextInputAction? inputAction;
+   final bool?   onlyNumbers  ; 
 
   const AuthField({
     super.key,
@@ -33,6 +36,8 @@ class AuthField extends StatelessWidget {
     this.imagePath = '',
     this.validator,
     this.isValid = false,
+    this.inputAction,
+     this.onlyNumbers = false  
   });
 
   @override
@@ -42,7 +47,7 @@ class AuthField extends StatelessWidget {
         : const Color(0xFFAAAAAA);
 
     return Container(
-      height: 72.h,
+      height: 67.h,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(70),
@@ -61,7 +66,7 @@ class AuthField extends StatelessWidget {
             child: SizedBox(
               width: 20.w,
               height: 20.h,
-              
+
               child: ColorFiltered(
                 colorFilter: ColorFilter.mode(activeColor, BlendMode.srcIn),
                 child: Image.asset(imagePath, height: 18.sp, width: 18.sp),
@@ -70,15 +75,24 @@ class AuthField extends StatelessWidget {
           ),
           Container(
             width: 1,
-            height: 22,
+            height: 22.h,
             color: isValid
                 ? AppColors.primary.withOpacity(0.4)
                 : const Color(0xFFDDDDDD),
           ),
           Expanded(
             child: TextFormField(
+                inputFormatters: onlyNumbers == true
+      ? [FilteringTextInputFormatter.digitsOnly]
+      : null,
+           
+              cursorColor: AppColors.primary,
+              cursorHeight: 30.h,
+              cursorWidth: 3.w,
+              cursorRadius: Radius.circular(10.r),
               onChanged: onChanged,
               readOnly: readOnly,
+              textInputAction: inputAction ?? TextInputAction.next,
               controller: controller,
               onTap: onTap,
               obscureText: obscureText,
@@ -90,9 +104,7 @@ class AuthField extends StatelessWidget {
                 labelStyle: GoogleFonts.poppins(
                   fontSize: 12.5.sp,
                   fontWeight: FontWeight.w500,
-                  color: isValid
-                      ? AppColors.primary
-                      : const Color(0xFFAAAAAA),
+                  color: isValid ? AppColors.primary : const Color(0xFFAAAAAA),
                 ),
                 hintText: placeholderText,
                 hintStyle: const TextStyle(
@@ -104,7 +116,7 @@ class AuthField extends StatelessWidget {
                 errorStyle: const TextStyle(
                   height: 0,
                   fontSize: 0,
-                ), // ✅ hide error text
+                ), 
                 contentPadding: EdgeInsets.symmetric(
                   horizontal: 12.w,
                   vertical: 20.h,

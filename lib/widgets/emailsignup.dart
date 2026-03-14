@@ -107,8 +107,10 @@ class _EmailSignupTabState extends State<EmailSignupTab> {
             hintText: 'Password',
             placeholderText: '• • • • • • • • •',
             obscureText: _obscurePassword,
+            inputAction: TextInputAction.done,
             controller: widget.passwordController,
             imagePath: AppAssets.passwordIcon,
+          
             isValid: vm.passwordValid,
             validator: vm.formValidatePassword,
             onChanged: (v) => vm.validatePassword(v), // ✅ live update
