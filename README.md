@@ -56,4 +56,8 @@ MVVM architecture with separation of:
 
 ## Author
 
+<<<<<<< HEAD
 Muhammad Fiaz Zafar
+=======
+Muhammad Fiaz Zafar
+>>>>>>> df6b423979a0cda4c045e6bc2df2e142248d76d3
