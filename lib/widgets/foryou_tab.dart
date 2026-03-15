@@ -1,8 +1,10 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:sss_stars_flutter_assessment/mvvm/models/product_model.dart';
 import 'package:sss_stars_flutter_assessment/mvvm/viewModel/foryou_viewModel.dart';
+import 'package:sss_stars_flutter_assessment/mvvm/viewModel/home_viewModel.dart';
 import 'package:sss_stars_flutter_assessment/widgets/banner.dart';
 import 'package:sss_stars_flutter_assessment/widgets/search_bar.dart';
 import 'package:sss_stars_flutter_assessment/widgets/silver_grid.dart';
@@ -26,72 +28,115 @@ class ForYouTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ForyouViewmodel(),
-      child: Consumer<ForyouViewmodel>(
-        builder: (context, vm, _) {
-          return Column(
-            children: [
-              const SearchField(),
-              SizedBox(height: 10.h),
+    final homeVm = context.watch<HomeViewmodel>(); 
 
-              AnimatedSize(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-                child: SizedBox(
-                  height: vm.showCategories ? null : 0,
-                  child: Column(
-                    children: [
-                      CategoryFilterBar(
-                        categories: vm.categories,
-                        selectedIndex: vm.selectedCategoryIndex,
-                        onCategorySelected: vm.selectCategory,
-                      ),
-                    ],
+    return Consumer<ForyouViewmodel>(
+      builder: (context, vm, _) {
+        final double headerOpacity = switch (homeVm.navScrollState) {
+          NavScrollState.atTop         => 1.0,
+          NavScrollState.scrollingUp   => 0.25,
+          NavScrollState.scrollingDown => 0.15,
+        };
+    
+        return Stack(
+          children: [
+            CustomScrollView(
+              controller: vm.scrollController,
+              physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
+              slivers: [
+                SliverToBoxAdapter(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    height: vm.showCategories ? 128.h : 68.h,
                   ),
                 ),
-              ),
-
-              Expanded(
-                child: CustomScrollView(
-                  controller: vm.scrollController,
-                  physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics(),
+    
+                SliverToBoxAdapter(
+                  child: BannerCarousel(
+                    banners: banners,
+                    currentIndex: bannerIndex,
+                    controller: bannerController,
+                    onChanged: onBannerChanged,
                   ),
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: BannerCarousel(
-                        banners: banners,
-                        currentIndex: bannerIndex,
-                        controller: bannerController,
-                        onChanged: onBannerChanged,
+                ),
+    
+                const SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(16, 20, 16, 10),
+                    child: Text(
+                      'For You:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF1A1A1A),
                       ),
                     ),
-                    const SliverToBoxAdapter(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(16, 20, 16, 10),
-                        child: Text(
-                          'For You:',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF1A1A1A),
+                  ),
+                ),
+    
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  sliver: MasonrySliverGrid(products: products),
+                ),
+    
+                const SliverToBoxAdapter(child: SizedBox(height: 100)),
+              ],
+            ),
+    
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 350),
+                    curve: Curves.easeInOut,
+                    height: vm.showCategories ? 128.h : 68.h,
+                    // ignore: deprecated_member_use
+                    color: Colors.white.withOpacity(headerOpacity),
+                    child: ClipRect(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SearchField(),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                            height: vm.showCategories ? 56.h : 0,
+                            child: AnimatedOpacity(
+                              duration: const Duration(milliseconds: 250),
+                              opacity: vm.showCategories ? 1.0 : 0.0,
+                              child: SingleChildScrollView(
+                                physics:
+                                    const NeverScrollableScrollPhysics(),
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 6.h),
+                                    CategoryFilterBar(
+                                      categories: vm.categories,
+                                      selectedIndex:
+                                          vm.selectedCategoryIndex,
+                                      onCategorySelected: vm.selectCategory,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                    SliverPadding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      sliver: MasonrySliverGrid(products: products),
-                    ),
-                    const SliverToBoxAdapter(child: SizedBox(height: 16)),
-                  ],
+                  ),
                 ),
               ),
-            ],
-          );
-        },
-      ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

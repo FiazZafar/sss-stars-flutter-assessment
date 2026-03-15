@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -57,7 +58,6 @@ class _HomepageState extends State<Homepage>
       body: SafeArea(
         child: Stack(
           children: [
-            // ── Main content — TabBar height jitna top padding ──
             Padding(
               padding: EdgeInsets.only(top: 48.h),
               child: NotificationListener<ScrollNotification>(
@@ -66,23 +66,19 @@ class _HomepageState extends State<Homepage>
                     final delta = notification.scrollDelta ?? 0;
                     final pixels = notification.metrics.pixels;
 
-                    // Bounce zone — pure white
                     if (pixels < 0) {
                       vm.setNavScrollState(NavScrollState.atTop);
                       return false;
                     }
 
-                    // Top pe — pure white
                     if (pixels <= 10) {
                       vm.setNavScrollState(NavScrollState.atTop);
                       return false;
                     }
 
-                    // Scroll down — deep glass
                     if (delta > 1.5) {
                       vm.setNavScrollState(NavScrollState.scrollingDown);
                     }
-                    // Scroll up — subtle glass
                     else if (delta < -1.5) {
                       vm.setNavScrollState(NavScrollState.scrollingUp);
                     }
@@ -101,15 +97,8 @@ class _HomepageState extends State<Homepage>
               ),
             ),
 
-            // ── Floating Glass TabBar — TOP ──
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: _buildTopTabs(vm),
-            ),
+            Positioned(top: 0, left: 0, right: 0, child: _buildTopTabs(vm)),
 
-            // ── Floating Glass Navbar — BOTTOM ──
             Positioned(
               left: 0,
               right: 0,
@@ -170,8 +159,8 @@ class _HomepageState extends State<Homepage>
 
   Widget _buildTopTabs(HomeViewmodel vm) {
     final Color tabBarColor = switch (vm.navScrollState) {
-      NavScrollState.atTop         => Colors.white.withOpacity(1.0),
-      NavScrollState.scrollingUp   => Colors.white.withOpacity(0.25),
+      NavScrollState.atTop => Colors.white.withOpacity(1.0),
+      NavScrollState.scrollingUp => Colors.white.withOpacity(0.25),
       NavScrollState.scrollingDown => Colors.white.withOpacity(0.15),
     };
 
@@ -179,6 +168,8 @@ class _HomepageState extends State<Homepage>
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
         child: AnimatedContainer(
+          // height: 86.h,
+
           duration: const Duration(milliseconds: 350),
           curve: Curves.easeInOut,
           decoration: BoxDecoration(
@@ -217,8 +208,8 @@ class _HomepageState extends State<Homepage>
 
   Widget _buildBottomNav(HomeViewmodel vm) {
     final Color navColor = switch (vm.navScrollState) {
-      NavScrollState.atTop         => Colors.white.withOpacity(1.0),
-      NavScrollState.scrollingUp   => Colors.white.withOpacity(0.25),
+      NavScrollState.atTop => Colors.white.withOpacity(1.0),
+      NavScrollState.scrollingUp => Colors.white.withOpacity(0.25),
       NavScrollState.scrollingDown => Colors.white.withOpacity(0.15),
     };
 
