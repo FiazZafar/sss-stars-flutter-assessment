@@ -113,7 +113,7 @@ class _AuthPageState extends State<AuthPage>
                           text: 'Next',
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w700,
-                            color: AppColors.textDarkColor,
+                            color: AppColors.textDarkColor.withOpacity(0.7),
                           ),
                         ),
                         const TextSpan(text: '\nbutton'),
@@ -128,11 +128,11 @@ class _AuthPageState extends State<AuthPage>
                     labelColor: AppColors.textDarkColor,
                     unselectedLabelColor: AppColors.textGreyColor,
                     labelStyle: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w600,
                       fontSize: 13.sp,
                     ),
                     unselectedLabelStyle: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                     ),
                     indicator: BoxDecoration(
                       color: AppColors.primary,

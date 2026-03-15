@@ -71,7 +71,6 @@ class BannerCarousel extends StatelessWidget {
           ),
         ),
          SizedBox(height: 10.h),
-        // ✅ dot indicators
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
@@ -110,7 +109,7 @@ class BannerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -192,7 +191,7 @@ class TrendingBrandsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

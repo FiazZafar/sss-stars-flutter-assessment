@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sss_stars_flutter_assessment/firebase_options.dart';
+import 'package:sss_stars_flutter_assessment/mvvm/viewModel/foryou_viewModel.dart';
 import 'package:sss_stars_flutter_assessment/mvvm/viewModel/home_viewModel.dart';
 import 'package:sss_stars_flutter_assessment/resources/app_routes.dart';
 
@@ -17,6 +18,8 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
         ChangeNotifierProvider(create: (_) => HomeViewmodel()),
+        ChangeNotifierProvider(create: (_) => ForyouViewmodel()),
+
       ],
       child: const MyApp(),
     ),
