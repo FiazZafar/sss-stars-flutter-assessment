@@ -86,53 +86,47 @@ class ForYouTab extends StatelessWidget {
             ),
 
             Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: ClipRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 350),
-                    curve: Curves.easeInOut,
-                    height: vm.showCategories ? 128.h : 68.h,
-                    // ignore: deprecated_member_use
-                    color: Colors.white.withOpacity(headerOpacity),
-                    child: ClipRect(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const SearchField(),
-                          SizedBox(height: 10.h),
-
-                          AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
-                            height: vm.showCategories ? 56.h : 0,
-                            child: AnimatedOpacity(
-                              duration: const Duration(milliseconds: 250),
-                              opacity: vm.showCategories ? 1.0 : 0.0,
-                              child: SingleChildScrollView(
-                                physics: const NeverScrollableScrollPhysics(),
-                                child: Column(
-                                  children: [
-                                    CategoryFilterBar(
-                                      categories: vm.categories,
-                                      selectedIndex: vm.selectedCategoryIndex,
-                                      onCategorySelected: vm.selectCategory,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+  top: 0,
+  left: 0,
+  right: 0,
+  child: ClipRect(
+    child: BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.easeInOut,
+        height: vm.showCategories ? 128.h : 68.h,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(headerOpacity),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SearchField(),
+            SizedBox(height: 10.h,),
+            ClipRect(
+              child: AnimatedAlign(
+                duration: const Duration(milliseconds: 350),
+                curve: Curves.easeInOut,
+                alignment: Alignment.topCenter,
+                heightFactor: vm.showCategories ? 1.0 : 0.0,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 250),
+                  opacity: vm.showCategories ? 1.0 : 0.0,
+                  child: CategoryFilterBar(
+                    categories: vm.categories,
+                    selectedIndex: vm.selectedCategoryIndex,
+                    onCategorySelected: vm.selectCategory,
                   ),
                 ),
               ),
             ),
+          ],
+        ),
+      ),
+    ),
+  ),
+),
           ],
         );
       },

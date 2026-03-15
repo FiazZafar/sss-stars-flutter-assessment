@@ -65,7 +65,9 @@ class _HomepageState extends State<Homepage>
                   if (notification is ScrollUpdateNotification) {
                     final delta = notification.scrollDelta ?? 0;
                     final pixels = notification.metrics.pixels;
-
+                    if(notification.metrics.axis == Axis.horizontal){
+                      return false;
+                    }
                     if (pixels < 0) {
                       vm.setNavScrollState(NavScrollState.atTop);
                       return false;

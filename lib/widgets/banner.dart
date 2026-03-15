@@ -22,7 +22,6 @@ final List<TrendingBrand> trendingBrands = [
     name: 'Nike',
     description: 'Just Do It',
   ),
-
   TrendingBrand(
     avatarUrl: 'https://i.pravatar.cc/80?img=2',
     name: 'Nike',
@@ -52,7 +51,7 @@ class BannerCarousel extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 380.h,
+          height: 360.h,
           child: PageView.builder(
             controller: controller,
             onPageChanged: onChanged,
@@ -70,21 +69,25 @@ class BannerCarousel extends StatelessWidget {
             },
           ),
         ),
-         SizedBox(height: 10.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            _totalPages,
-            (i) => AnimatedContainer(
-              duration: const Duration(milliseconds: 250),
-              margin: const EdgeInsets.symmetric(horizontal: 3),
-              width: i == currentIndex ? 20 : 6,
-              height: 6.h,
-              decoration: BoxDecoration(
-                color: i == currentIndex
-                    ? const Color(0xFF0079FF)
-                    : const Color(0xFFCCCCCC),
-                borderRadius: BorderRadius.circular(3),
+        SizedBox(height: 10.h),
+        Padding(
+          padding: const EdgeInsets.only(right: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: List.generate(
+              _totalPages,
+
+              (i) => AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                margin: const EdgeInsets.symmetric(horizontal: 3),
+                width: i == currentIndex ? 16 : 6,
+                height: 6.h,
+                decoration: BoxDecoration(
+                  color: i == currentIndex
+                      ? const Color(0xFF0079FF)
+                      : const Color(0xFFCCCCCC),
+                  borderRadius: BorderRadius.circular(3),
+                ),
               ),
             ),
           ),
@@ -116,12 +119,12 @@ class BannerCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Container(
-              height: 220.h,
+              height: 200.h,
               width: double.infinity,
               color: const Color(0xFFF08080),
               child: CachedNetworkImage(
                 imageUrl: imageUrl,
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
                 placeholder: (_, __) =>
                     const Center(child: CircularProgressIndicator()),
                 errorWidget: (_, __, ___) =>
@@ -130,26 +133,35 @@ class BannerCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 14),
-          Text(
-            title,
-            style:  GoogleFonts.poppins(
-              fontSize: 30.sp,
-              fontWeight: FontWeight.w900,
-              color: Color(0xFF1A1A1A),
-              height: 1.1,
+          ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+              colors: [Color(0xFF212121), Color(0xFF878787), Color(0xFF000000)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ).createShader(bounds),
+
+            child: Text(
+              title,
+              style: GoogleFonts.poppins(
+                fontSize: 30.sp,
+                fontWeight: FontWeight.w900,
+                color: Colors
+                    .white, // ✅ White hona chahiye — ShaderMask color override karta hai
+                // height: 1.1,
+              ),
             ),
           ),
-           SizedBox(height: 5.sp),
+          SizedBox(height: 5.sp),
           Text(
             subtitle,
-            style:  GoogleFonts.dmSans(
+            style: GoogleFonts.dmSans(
               fontSize: 13,
-              fontWeight: FontWeight.w300,
+              fontWeight: FontWeight.w700,
               color: Color(0xFF888888),
               height: 1.4,
             ),
           ),
-           SizedBox(height: 12.h),
+          SizedBox(height: 12.h),
           Container(
             height: 42,
             decoration: BoxDecoration(
@@ -158,7 +170,7 @@ class BannerCard extends StatelessWidget {
             ),
             child: TextButton.icon(
               onPressed: () {},
-              icon:  Text(
+              icon: Text(
                 'Shop Now',
                 style: GoogleFonts.poppins(
                   fontSize: 14.sp,
@@ -216,9 +228,10 @@ class TrendingBrandsPage extends StatelessWidget {
           ),
           const SizedBox(height: 14),
 
-          Expanded(
+          SizedBox(
+            height: 210.h,
             child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
+              physics: NeverScrollableScrollPhysics(),
               itemCount: trendingBrands.length,
               itemBuilder: (context, index) {
                 final brand = trendingBrands[index];
@@ -244,10 +257,7 @@ class TrendingBrandsPage extends StatelessWidget {
                         height: 36,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 2,
-                          ), // ✅ white border separates overlapping circles
+                          border: Border.all(color: Colors.white, width: 2),
                         ),
                         child: ClipOval(
                           child: CachedNetworkImage(
@@ -265,12 +275,11 @@ class TrendingBrandsPage extends StatelessWidget {
                 ),
               ),
 
-
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
                 child: GestureDetector(
                   onTap: () {},
-                  child:  Text(
+                  child: Text(
                     'Explore the Global Scene  >',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
@@ -299,7 +308,7 @@ class _BrandTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start, 
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipOval(
             child: CachedNetworkImage(
@@ -320,7 +329,7 @@ class _BrandTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
-              
+
               children: [
                 Text(
                   brand.name,
@@ -350,7 +359,7 @@ class _BrandTile extends StatelessWidget {
           ),
 
           Align(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.bottomCenter,
             child: TextButton(
               onPressed: () {},
               style: TextButton.styleFrom(
