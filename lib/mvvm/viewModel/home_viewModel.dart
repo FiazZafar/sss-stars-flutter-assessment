@@ -3,6 +3,9 @@ import 'package:sss_stars_flutter_assessment/Repository/products_repo.dart';
 import 'package:sss_stars_flutter_assessment/dataLayer/network_response.dart/network_reponces.dart';
 import 'package:sss_stars_flutter_assessment/mvvm/models/product_model.dart';
 
+// ✅ 3 states for navbar effect
+enum NavScrollState { atTop, scrollingUp, scrollingDown }
+
 class HomeViewmodel extends ChangeNotifier {
   final ProductRepo _repo = ProductRepo.instance;
 
@@ -30,6 +33,20 @@ class HomeViewmodel extends ChangeNotifier {
     _bannerIndex = index;
     notifyListeners();
   }
+
+  // ✅ Replaced bool with enum for 3 states
+  NavScrollState _navScrollState = NavScrollState.atTop;
+  NavScrollState get navScrollState => _navScrollState;
+
+  void setNavScrollState(NavScrollState state) {
+    if (_navScrollState != state) { // ✅ Guard — unnecessary rebuilds prevent
+      _navScrollState = state;
+      notifyListeners();
+    }
+  }
+
+  // ✅ Backward compat getter — ForYouTab glass header still works
+  bool get isScrollingDown => _navScrollState == NavScrollState.scrollingDown;
 
   Future<void> getProducts() async {
     _isLoading = true;

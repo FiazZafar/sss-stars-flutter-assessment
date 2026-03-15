@@ -33,6 +33,7 @@ class ForYouTab extends StatelessWidget {
           return Column(
             children: [
               const SearchField(),
+              SizedBox(height: 10.h),
 
               AnimatedSize(
                 duration: const Duration(milliseconds: 300),
@@ -41,7 +42,6 @@ class ForYouTab extends StatelessWidget {
                   height: vm.showCategories ? null : 0,
                   child: Column(
                     children: [
-                      SizedBox(height: 10.h),
                       CategoryFilterBar(
                         categories: vm.categories,
                         selectedIndex: vm.selectedCategoryIndex,
