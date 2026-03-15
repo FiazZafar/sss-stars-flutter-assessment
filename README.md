@@ -24,7 +24,7 @@ ScreenUtil
 ## APK
 
 Download APK:
-[[APK Download Link](https://drive.google.com/file/d/1fG0bDMTrR8i4-8VdYPMKycezTL9I14xE/view?usp=drivesdk)]
+[[APK Download Link](https://drive.google.com/file/d/14qA-BinFHbgnEtxclxGHlIvs4weYuCPY/view?usp=drivesdk)]
 
 ## Setup
 

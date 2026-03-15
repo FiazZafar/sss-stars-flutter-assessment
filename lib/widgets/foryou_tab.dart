@@ -28,16 +28,16 @@ class ForYouTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeVm = context.watch<HomeViewmodel>(); 
+    final homeVm = context.watch<HomeViewmodel>();
 
     return Consumer<ForyouViewmodel>(
       builder: (context, vm, _) {
         final double headerOpacity = switch (homeVm.navScrollState) {
-          NavScrollState.atTop         => 1.0,
-          NavScrollState.scrollingUp   => 0.25,
+          NavScrollState.atTop => 1.0,
+          NavScrollState.scrollingUp => 0.25,
           NavScrollState.scrollingDown => 0.15,
         };
-    
+
         return Stack(
           children: [
             CustomScrollView(
@@ -52,7 +52,7 @@ class ForYouTab extends StatelessWidget {
                     height: vm.showCategories ? 128.h : 68.h,
                   ),
                 ),
-    
+
                 SliverToBoxAdapter(
                   child: BannerCarousel(
                     banners: banners,
@@ -61,7 +61,7 @@ class ForYouTab extends StatelessWidget {
                     onChanged: onBannerChanged,
                   ),
                 ),
-    
+
                 const SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(16, 20, 16, 10),
@@ -75,16 +75,16 @@ class ForYouTab extends StatelessWidget {
                     ),
                   ),
                 ),
-    
+
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   sliver: MasonrySliverGrid(products: products),
                 ),
-    
+
                 const SliverToBoxAdapter(child: SizedBox(height: 100)),
               ],
             ),
-    
+
             Positioned(
               top: 0,
               left: 0,
@@ -103,6 +103,8 @@ class ForYouTab extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const SearchField(),
+                          SizedBox(height: 10.h),
+
                           AnimatedContainer(
                             duration: const Duration(milliseconds: 300),
                             curve: Curves.easeInOut,
@@ -111,15 +113,12 @@ class ForYouTab extends StatelessWidget {
                               duration: const Duration(milliseconds: 250),
                               opacity: vm.showCategories ? 1.0 : 0.0,
                               child: SingleChildScrollView(
-                                physics:
-                                    const NeverScrollableScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 6.h),
                                     CategoryFilterBar(
                                       categories: vm.categories,
-                                      selectedIndex:
-                                          vm.selectedCategoryIndex,
+                                      selectedIndex: vm.selectedCategoryIndex,
                                       onCategorySelected: vm.selectCategory,
                                     ),
                                   ],
